@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Data KTP</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="header-top">
+            <h1>📋 Manajemen Data KTP</h1>
+            <button id="themeToggle" class="btn-theme" onclick="toggleTheme()">🌙</button>
+        </div>
+        <p class="subtitle">Sistem Informasi Kartu Tanda Penduduk</p>
+    </header>
+
+    <!-- Toast Notification -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Form -->
+    <div class="card fade-in">
+        <h2 id="formTitle">Tambah Data KTP</h2>
+        <form id="ktpForm">
+            <input type="hidden" id="ktpId">
+
+            <div class="form-group">
+                <label for="nomorKtp">Nomor KTP <span class="required">*</span></label>
+                <input type="text" id="nomorKtp" maxlength="16" placeholder="Masukkan 16 digit nomor KTP" required>
+                <small class="hint">Contoh: 3201234567890001</small>
+            </div>
+
+            <div class="form-group">
+                <label for="namaLengkap">Nama Lengkap <span class="required">*</span></label>
+                <input type="text" id="namaLengkap" placeholder="Masukkan nama lengkap" required>
+            </div>
+
+            <div class="form-group">
+                <label for="alamat">Alamat <span class="required">*</span></label>
+                <textarea id="alamat" rows="3" placeholder="Masukkan alamat lengkap" required></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="tanggalLahir">Tanggal Lahir <span class="required">*</span></label>
+                    <input type="date" id="tanggalLahir" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="jenisKelamin">Jenis Kelamin <span class="required">*</span></label>
+                    <select id="jenisKelamin" required>
+                        <option value="">-- Pilih --</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" id="btnSubmit" class="btn-primary">💾 Simpan Data</button>
+                <button type="button" id="btnCancel" class="btn-secondary hidden">✖ Batal</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tabel Data -->
+    <div class="card fade-in">
+        <div class="table-header">
+            <h2>Daftar Data KTP</h2>
+            <button class="btn-outline" onclick="loadKtpData()">🔄 Refresh</button>
+        </div>
+
+        <div id="loadingSpinner" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Memuat data...</p>
+        </div>
+
+        <div class="table-wrapper">
+            <table id="ktpTable">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nomor KTP</th>
+                    <th>Nama Lengkap</th>
+                    <th>Alamat</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody id="ktpTableBody">
+                <tr>
+                    <td colspan="7" class="empty">Belum ada data.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Pop-up -->
+<div id="modal" class="modal hidden">
+    <div class="modal-content">
+        <div id="modalIcon" class="modal-icon"></div>
+        <h3 id="modalTitle"></h3>
+        <p id="modalMessage"></p>
+        <p id="modalInfo" class="modal-info hidden"></p>
+        <div id="modalActions" class="modal-actions"></div>
+    </div>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
