@@ -131,19 +131,6 @@ Frontend dibuat menggunakan HTML, CSS, dan JavaScript dengan jQuery Ajax. Semua 
 | style.css  | `resources/static/css/style.css`| Styling & dark mode                     |
 | app.js     | `resources/static/js/app.js`    | jQuery Ajax untuk CRUD operations       |
 
-### Fitur Frontend
-- Form input dengan date picker untuk tanggal lahir dan dropdown untuk jenis kelamin
-- Tabel data KTP dengan tombol Edit dan Hapus
-- Ajax jQuery untuk POST, GET, PUT, DELETE tanpa refresh halaman
-- Pop-up notifikasi sukses untuk tambah dan update data
-- Modal konfirmasi sebelum hapus data
-- Toast notification untuk feedback setiap operasi
-- Dark mode toggle
-- Badge warna untuk jenis kelamin
-- Responsive design
-
----
-
 ## Screenshot
 
 ### Halaman Utama
