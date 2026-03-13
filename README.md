@@ -1,52 +1,87 @@
-# Tugas CRUD KTP
+# Tugas CRUD KTP - Spring Boot & MySQL
 
-Aplikasi CRUD data Kartu Tanda Penduduk (KTP) menggunakan Spring Boot sebagai REST API backend dan HTML/CSS/JavaScript dengan jQuery Ajax sebagai frontend client-side. Semua operasi CRUD berjalan tanpa refresh halaman menggunakan Ajax.
+Aplikasi CRUD (Create, Read, Update, Delete) untuk manajemen data Kartu Tanda Penduduk (KTP) menggunakan **Spring Boot** sebagai backend REST API dan **HTML/CSS/JavaScript (jQuery Ajax)** sebagai frontend client-side. Semua operasi CRUD berjalan tanpa refresh halaman menggunakan Ajax.
+
+## 🛠 Teknologi yang Digunakan
+
+| Layer      | Teknologi                              |
+|------------|----------------------------------------|
+| Backend    | Spring Boot 4.0.3, Java 25            |
+| Database   | MySQL                                  |
+| ORM        | Spring Data JPA (Hibernate)            |
+| Frontend   | HTML5, CSS3, JavaScript, jQuery Ajax   |
+| Build Tool | Maven                                  |
+
+### Dependencies
+
+| Dependency           | Fungsi                                          |
+|----------------------|-------------------------------------------------|
+| Spring Web           | Framework REST API (Controller, JSON)            |
+| Spring Data JPA      | ORM untuk interaksi dengan database MySQL        |
+| MySQL Driver         | JDBC Driver koneksi ke MySQL                     |
+| Lombok               | Mengurangi boilerplate code (getter/setter/dll)  |
+| Validation           | Validasi data menggunakan anotasi                |
+| MapStruct            | Mapping otomatis antara Entity dan DTO           |
 
 ---
 
-## Teknologi
-
-- **Backend:** Spring Boot 4.0.3, Java 25
-- **Database:** MySQL
-- **ORM:** Spring Data JPA (Hibernate)
-- **Frontend:** HTML5, CSS3, JavaScript, jQuery Ajax
-- **Library:** MapStruct, Lombok, Validation
-- **Build Tool:** Maven
-
----
-
-## Struktur Package
+## 📁 Struktur Project
 
 ```
-com.deploy.praktikum2crudktp/
-├── controller/       → REST Controller (handle API endpoint)
-├── mapper/           → MapStruct interface (Entity ↔ DTO)
-├── model/
-│   ├── dto/          → Data Transfer Object (Request & Response)
-│   └── entity/       → JPA Entity (mapping ke tabel database)
-├── repository/       → Spring Data JPA Repository
-├── service/          → Service interface
-│   └── Impl/         → Service implementation (logika bisnis)
-└── util/             → Utility class (validasi data)
+praktikum2crudktp/
+├── src/main/
+│   ├── java/com/deploy/praktikum2crudktp/
+│   │   ├── controller/
+│   │   │   └── KtpController.java           # REST Controller untuk handle request API
+│   │   ├── mapper/
+│   │   │   └── KtpMapper.java               # Interface MapStruct (Entity <-> DTO)
+│   │   ├── model/
+│   │   │   ├── dto/
+│   │   │   │   ├── KtpAddRequest.java       # DTO untuk request tambah/update data
+│   │   │   │   └── KtpDto.java              # DTO untuk response data KTP
+│   │   │   └── entity/
+│   │   │       └── Ktp.java                 # JPA Entity (mapping ke tabel database)
+│   │   ├── repository/
+│   │   │   └── KtpRepository.java           # Spring Data JPA Repository
+│   │   ├── service/
+│   │   │   ├── KtpService.java              # Service Interface
+│   │   │   └── Impl/
+│   │   │       └── KtpServiceImpl.java      # Service Implementation (logika bisnis)
+│   │   ├── util/
+│   │   │   └── ValidationUtil.java          # Utility class untuk validasi data
+│   │   └── Praktikum2CrudktpApplication.java  # Main Application
+│   └── resources/
+│       ├── application.properties           # Konfigurasi database & aplikasi
+│       └── static/
+│           ├── index.html                   # Halaman utama (frontend)
+│           ├── css/
+│           │   └── style.css                # Stylesheet
+│           └── js/
+│               └── app.js                   # jQuery Ajax untuk CRUD
+├── .env                                     # Environment variables (database config)
+└── pom.xml                                  # Maven dependencies
 ```
 
-| Package      | File                | Tipe      | Keterangan                                |
-|--------------|---------------------|-----------|-------------------------------------------|
-| controller   | KtpController       | Class     | Handle 5 endpoint CRUD                    |
-| mapper       | KtpMapper           | Interface | Konversi otomatis Entity ke DTO           |
-| model/dto    | KtpAddRequest       | Class     | DTO untuk request tambah & update data    |
-| model/dto    | KtpDto              | Class     | DTO untuk response data KTP               |
-| model/entity | Ktp                 | Class     | Entity JPA mapping ke tabel ktp           |
-| repository   | KtpRepository       | Interface | Akses database dengan Spring Data JPA     |
-| service      | KtpService          | Interface | Kontrak method CRUD                       |
-| service/Impl | KtpServiceImpl      | Class     | Implementasi logika bisnis & validasi     |
-| util         | ValidationUtil      | Class     | Validasi data request menggunakan Bean Validation |
+### Package yang Diimplementasikan
+
+| Package      | File                | Tipe      | Keterangan                                         |
+|--------------|---------------------|-----------|-----------------------------------------------------|
+| controller   | KtpController       | Class     | Handle 5 endpoint CRUD                              |
+| mapper       | KtpMapper           | Interface | Konversi otomatis Entity ke DTO menggunakan MapStruct|
+| model/dto    | KtpAddRequest       | Class     | DTO untuk request tambah & update data               |
+| model/dto    | KtpDto              | Class     | DTO untuk response data KTP                          |
+| model/entity | Ktp                 | Class     | Entity JPA mapping ke tabel ktp                      |
+| repository   | KtpRepository       | Interface | Akses database dengan Spring Data JPA                |
+| service      | KtpService          | Interface | Kontrak method CRUD                                  |
+| service/Impl | KtpServiceImpl      | Class     | Implementasi logika bisnis & validasi                |
+| util         | ValidationUtil      | Class     | Validasi data request menggunakan Bean Validation    |
 
 ---
 
-## Database
+## 🗄 Database Schema
 
-**Schema:** `spring` | **Tabel:** `ktp`
+**Database:** `spring`
+**Tabel:** `ktp`
 
 | Kolom         | Tipe         | Constraint                  |
 |---------------|--------------|-----------------------------|
@@ -57,11 +92,25 @@ com.deploy.praktikum2crudktp/
 | tanggal_lahir | DATE         | NOT NULL                    |
 | jenis_kelamin | VARCHAR(20)  | NOT NULL                    |
 
-Tabel otomatis dibuat oleh Hibernate (`spring.jpa.hibernate.ddl-auto=update`) saat aplikasi pertama kali dijalankan. Cukup buat database `spring` secara manual.
+### SQL Script
 
----
+```sql
+CREATE DATABASE IF NOT EXISTS spring;
+USE spring;
 
-## API Documentation
+CREATE TABLE IF NOT EXISTS ktp (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nomor_ktp VARCHAR(16) NOT NULL UNIQUE,
+    nama_lengkap VARCHAR(100) NOT NULL,
+    alamat VARCHAR(255) NOT NULL,
+    tanggal_lahir DATE NOT NULL,
+    jenis_kelamin VARCHAR(20) NOT NULL
+);
+```
+
+> **Catatan:** Tabel otomatis dibuat oleh Hibernate (`spring.jpa.hibernate.ddl-auto=update`) saat aplikasi pertama kali dijalankan. Cukup buat database `spring` secara manual.
+
+## 📡 API Documentation
 
 Base URL: `http://localhost:8080`
 
@@ -75,8 +124,9 @@ Base URL: `http://localhost:8080`
 | PUT    | /ktp/{id}  | Update data KTP               | Ya           |
 | DELETE | /ktp/{id}  | Hapus data KTP                | Tidak        |
 
-### Contoh Request Body (POST & PUT)
+### 1. POST /ktp — Tambah Data KTP
 
+**Request Body:**
 ```json
 {
     "nomorKtp": "3201234567890001",
@@ -87,9 +137,7 @@ Base URL: `http://localhost:8080`
 }
 ```
 
-### Contoh Response Sukses
-
-**POST /ktp (201 Created):**
+**Response (201 Created):**
 ```json
 {
     "status": "success",
@@ -104,7 +152,73 @@ Base URL: `http://localhost:8080`
 }
 ```
 
-**DELETE /ktp/1 (200 OK):**
+### 2. GET /ktp — Ambil Semua Data KTP
+
+**Response (200 OK):**
+```json
+{
+    "status": "success",
+    "data": [
+        {
+            "id": 1,
+            "nomorKtp": "3201234567890001",
+            "namaLengkap": "Budi Santoso",
+            "alamat": "Jl. Merdeka No. 10, Jakarta",
+            "tanggalLahir": "1990-05-15",
+            "jenisKelamin": "Laki-laki"
+        }
+    ]
+}
+```
+
+### 3. GET /ktp/{id} — Ambil Data KTP Berdasarkan ID
+
+**Response (200 OK):**
+```json
+{
+    "status": "success",
+    "data": {
+        "id": 1,
+        "nomorKtp": "3201234567890001",
+        "namaLengkap": "Budi Santoso",
+        "alamat": "Jl. Merdeka No. 10, Jakarta",
+        "tanggalLahir": "1990-05-15",
+        "jenisKelamin": "Laki-laki"
+    }
+}
+```
+
+### 4. PUT /ktp/{id} — Perbarui Data KTP
+
+**Request Body:**
+```json
+{
+    "nomorKtp": "3201234567890001",
+    "namaLengkap": "Budi Santoso Updated",
+    "alamat": "Jl. Sudirman No. 99, Jakarta Selatan",
+    "tanggalLahir": "1990-05-15",
+    "jenisKelamin": "Laki-laki"
+}
+```
+
+**Response (200 OK):**
+```json
+{
+    "status": "success",
+    "data": {
+        "id": 1,
+        "nomorKtp": "3201234567890001",
+        "namaLengkap": "Budi Santoso Updated",
+        "alamat": "Jl. Sudirman No. 99, Jakarta Selatan",
+        "tanggalLahir": "1990-05-15",
+        "jenisKelamin": "Laki-laki"
+    }
+}
+```
+
+### 5. DELETE /ktp/{id} — Hapus Data KTP
+
+**Response (200 OK):**
 ```json
 {
     "status": "success delete ktp with id 1"
@@ -121,7 +235,7 @@ Base URL: `http://localhost:8080`
 
 ---
 
-## Frontend (Client-side)
+## 🖥 Frontend (Client-side)
 
 Frontend dibuat menggunakan HTML, CSS, dan JavaScript dengan jQuery Ajax. Semua operasi CRUD dilakukan tanpa refresh halaman.
 
@@ -130,27 +244,37 @@ Frontend dibuat menggunakan HTML, CSS, dan JavaScript dengan jQuery Ajax. Semua 
 | index.html | `resources/static/index.html`   | Halaman utama (form & tabel)            |
 | style.css  | `resources/static/css/style.css`| Styling & dark mode                     |
 | app.js     | `resources/static/js/app.js`    | jQuery Ajax untuk CRUD operations       |
+---
 
-## Screenshot
+## 📸 Screenshot Tampilan Website
 
 ### Halaman Utama
+> Tampilan halaman utama dengan form input dan tabel data KTP.
 
 
 ### Tambah Data KTP
+> Form untuk menambahkan data KTP baru dengan input date dan dropdown jenis kelamin.
 
 
 ### Berhasil Tambah Data
+> Pop-up notifikasi setelah data berhasil ditambahkan.
 
 
 ### Edit Data KTP
+> Form terisi otomatis saat tombol Edit diklik.
 
 
 ### Berhasil Update Data
+> Pop-up notifikasi setelah data berhasil diperbarui.
 
 
 ### Konfirmasi Hapus
+> Modal pop-up konfirmasi sebelum data dihapus.
 
 
 ### Berhasil Hapus Data
+> Toast notification setelah data berhasil dihapus.
+
 
 ### Dark Mode
+> Tampilan dark mode.
