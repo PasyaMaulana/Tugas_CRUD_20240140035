@@ -250,31 +250,40 @@ Frontend dibuat menggunakan HTML, CSS, dan JavaScript dengan jQuery Ajax. Semua 
 
 ### Halaman Utama
 > Tampilan halaman utama dengan form input dan tabel data KTP.
+![1000165045](https://github.com/user-attachments/assets/085b890f-97bc-411d-8b41-361e9a4e3722)
 
 
 ### Tambah Data KTP
 > Form untuk menambahkan data KTP baru dengan input date dan dropdown jenis kelamin.
 
 
+
 ### Berhasil Tambah Data
 > Pop-up notifikasi setelah data berhasil ditambahkan.
+![1000165744](https://github.com/user-attachments/assets/4e5777e9-d1d8-4d1f-8509-2dd6c8972015)
+
 
 
 ### Edit Data KTP
 > Form terisi otomatis saat tombol Edit diklik.
+![1000165746](https://github.com/user-attachments/assets/9863449c-429b-4efb-905d-57ba77fe3d32)
 
 
 ### Berhasil Update Data
 > Pop-up notifikasi setelah data berhasil diperbarui.
+![1000165747](https://github.com/user-attachments/assets/c9885e74-d4d1-45c6-a094-83131ff1c961)
 
 
 ### Konfirmasi Hapus
 > Modal pop-up konfirmasi sebelum data dihapus.
+![1000165749](https://github.com/user-attachments/assets/0386ab62-57cf-4b4e-aca8-f880f1ac3a3a)
 
 
 ### Berhasil Hapus Data
 > Toast notification setelah data berhasil dihapus.
+![1000165750](https://github.com/user-attachments/assets/67913cdb-4cbe-42fe-a043-55b13c5aaef9)
 
 
 ### Dark Mode
 > Tampilan dark mode.
+![1000165751](https://github.com/user-attachments/assets/e34e9410-5b6f-48ed-9468-8730c0baf826)
